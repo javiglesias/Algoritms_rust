@@ -1,0 +1,6 @@
+[package]
+name = "Algoritms"
+version = "0.1.0"
+authors = ["eagle"]
+
+[dependencies]
