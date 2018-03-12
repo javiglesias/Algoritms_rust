@@ -5,7 +5,37 @@ mod lib;
     a = b;
     b = temp; 
 }*/
-fn insertion(disorder:&mut Vec<i32>) -> Vec<i32>{
+fn quicksort(disorder:&mut Vec<i32>) -> Vec<i32> {
+    let mut left:Vec<i32> = Vec::new();
+    let mut right:Vec<i32> = Vec::new();
+    let mut order:Vec<i32> = Vec::new();
+    let mut i = 0;
+    while i < (disorder.len()/2) {
+        left.push(disorder[i]);
+        i+=1;
+    }
+    while i < disorder.len() {
+        right.push(disorder[i]);
+        i+=1;
+    }
+    right.sort();
+    left.sort();
+    i = 0;
+    let mut x = 0;
+    let mut y = 0;
+    //have to add the minimun number between right and left in each iteration
+    while x < right.len() && y < left.len() {
+        if right[x] < left[y] {
+            order.push(right[x]);
+            x+=1;
+        } else {
+            order.push(left[y]);
+            y+=1;
+        }
+    }
+    order
+}
+fn insertion(disorder:&mut Vec<i32>) {
     let mut i = 0;
     let mut j = 0;
     let mut order:Vec<i32> = Vec::new();
@@ -28,7 +58,6 @@ fn insertion(disorder:&mut Vec<i32>) -> Vec<i32>{
         i+=1;
     }
     //println!("{:?}",disorder );
-    order
 }
 fn blub(disorder:&mut Vec<i32>) -> bool{
     let mut done:bool = false;
@@ -68,8 +97,11 @@ fn main() {
     if blub(&mut disorder) {
         println!("Post-Burbuja: {:?}",disorder);
     } 
-    disorder = default;
+    disorder = default.clone();
     println!("Pre-Insertion: {:?}", disorder);
     insertion(&mut disorder);
     println!("Post-Insertion: {:?}", disorder);
+    disorder = default.clone();
+    println!("Pre-quicksort: {:?}",disorder);
+    println!("Post-quicksort: {:?}",quicksort(&mut disorder));
 }
