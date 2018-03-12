@@ -5,20 +5,30 @@ mod lib;
     a = b;
     b = temp; 
 }*/
-fn insertion(disorder:&mut Vec<i32>) -> bool{
+fn insertion(disorder:&mut Vec<i32>) -> Vec<i32>{
     let mut i = 0;
+    let mut j = 0;
+    let mut order:Vec<i32> = Vec::new();
+    let mut choosen;
+    let mut temp;
     while i < disorder.len() {
-        let x = disorder[i];
-        let j = disorder.len();
-        let mut choosen;
+        choosen = disorder[i];
+        j = 0;
+        //insertar, choosen, en la posicion correcta.
         while j < i {
-            if x < disorder[j]{
-                choosen = &disorder[j];
+            //println!("{:?}",disorder);
+            if disorder[j] > disorder[i] {
+                temp = disorder[j];
+                disorder[j] = disorder[i];
+                disorder[i] = temp;
             }
+            j+=1;
         }
+        //end insertar
         i+=1;
     }
-    true
+    //println!("{:?}",disorder );
+    order
 }
 fn blub(disorder:&mut Vec<i32>) -> bool{
     let mut done:bool = false;
@@ -60,7 +70,6 @@ fn main() {
     } 
     disorder = default;
     println!("Pre-Insertion: {:?}", disorder);
-    if insertion(&mut disorder) {
-        println!("Post-Insertion: {:?}", disorder);
-    }
+    insertion(&mut disorder);
+    println!("Post-Insertion: {:?}", disorder);
 }
